@@ -17,9 +17,10 @@ cd ./keys/
 mkdir -p $PWD/clients/$1
 cp $1.crt $1.key ca.crt $PWD/clients/$1/
 
-cp ./conf/client.ovpn ./clients/$1/client.ovpn
-cp /etc/openvpn/ta.key ./clients/$1
 cd $PWD/clients
+cp ./conf/client.ovpn ./$1/client.ovpn
+cp /etc/openvpn/ta.key ./$1
+
 echo ca ca.crt$'\r' >> ./$1/client.ovpn
 echo cert $1.crt$'\r' >> ./$1/client.ovpn
 echo key $1.key$'\r' >> ./$1/client.ovpn
