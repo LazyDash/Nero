@@ -32,7 +32,7 @@ source ./vars
 
 #openvpn copy cerificates
 cd /etc/openvpn/easy-rsa/keys
-cp dh2048.pem ca.crt server.crt server.key ta.key /etc/openvpn
+cp dh2048.pem ca.crt server.crt server.key /etc/openvpn
 
 #openvpn enable and start service
 systemctl enable openvpn@server.service
