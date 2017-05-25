@@ -14,3 +14,6 @@ systemctl start iptables
 iptables --flush
 iptables -t nat -A POSTROUTING -s 10.8.0.0/24 -o eth0 -j MASQUERADE
 iptables-save > /etc/sysconfig/iptables
+
+#run setup
+./setup.sh
