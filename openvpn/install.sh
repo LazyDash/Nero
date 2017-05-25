@@ -3,6 +3,9 @@
 #install openvpn
 yum install -y openvpn easy-rsa
 
+#generate secret key
+openvpn --genkey --secret /etc/openvpn/ta.key
+
 #openvpn copy easy-rsa
 mkdir -p /etc/openvpn/easy-rsa/keys
 cp -rf /usr/share/easy-rsa/2.0/* /etc/openvpn/easy-rsa
@@ -23,14 +26,13 @@ source ./vars
 ./clean-all
 
 #openvpn build server keys
-#Build Server Keys
 ./build-ca
 ./build-dh
 ./build-key-server server
 
 #openvpn copy cerificates
 cd /etc/openvpn/easy-rsa/keys
-cp dh2048.pem ca.crt server.crt server.key /etc/openvpn
+cp dh2048.pem ca.crt server.crt server.key ta.key /etc/openvpn
 
 #openvpn enable and start service
 systemctl enable openvpn@server.service
