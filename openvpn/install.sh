@@ -1,11 +1,6 @@
 #!/bin/bash
-echo "Start"
-
-#updat
-yum update -y
 
 #install openvpn
-yum install -y epel-release
 yum install -y openvpn easy-rsa
 
 #openvpn copy easy-rsa
@@ -18,29 +13,9 @@ cp /etc/openvpn/easy-rsa/openssl-1.0.0.cnf /etc/openvpn/easy-rsa/openssl.cnf
 #openvpn enable service
 systemctl enable openvpn@server.service
 
-#install iptables
-yum install iptables-services -y
-
-#iptables switch firwall
-systemctl mask firewalld
-systemctl enable iptables
-
-#iptables enable
-systemctl stop firewalld
-systemctl start iptables
-
-#iptables configure
-iptables --flush
-iptables -t nat -A POSTROUTING -s 10.8.0.0/24 -o eth0 -j MASQUERADE
-iptables-save > /etc/sysconfig/iptables
-
-#configure network
-echo "net.ipv4.ip_forward = 1" >> /etc/sysctl.conf
-systemctl restart network.service
-
 #openvpn setup
-cp ./server.conf /etc/openvpn/
-cp ./vars /etc/openvpn/easy-rsa/
+cp ./conf/server.conf /etc/openvpn/
+cp ./conf/vars /etc/openvpn/easy-rsa/
 
 #openvpn move to dir
 cd /etc/openvpn/easy-rsa/
@@ -60,5 +35,3 @@ cp dh2048.pem ca.crt server.crt server.key /etc/openvpn
 #openvpn enable and start service
 systemctl enable openvpn@server.service
 systemctl start openvpn@server.service
-
-echo "End"

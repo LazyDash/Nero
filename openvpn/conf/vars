@@ -64,9 +64,9 @@ export KEY_EXPIRE=3650
 export KEY_COUNTRY="RO"
 export KEY_PROVINCE="B"
 export KEY_CITY="Bucharest"
-export KEY_ORG="LazyDash"
+export KEY_ORG="Lazydash"
 export KEY_EMAIL="valentin.uveges@gmail.com"
-export KEY_OU="Homebase"
+export KEY_OU="headquarters"
 
 # X509 Subject Field
 export KEY_NAME="server"
