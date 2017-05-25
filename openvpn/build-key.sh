@@ -6,19 +6,23 @@ if [ $# -eq 0 ]
     exit 0
 fi
 
-PWD=`pwd`
+DIR=`pwd`
 client=$1
 
 cd /etc/openvpn/easy-rsa/
 source ./vars
-./build-key $1
+KEY_CN=$1
+./build-key --batch $1
+
 
 cd ./keys/
-mkdir -p $PWD/clients/$1
-cp $1.crt $1.key ca.crt $PWD/clients/$1/
+mkdir -p $DIR/clients/$1
+cp $1.crt $1.key ca.crt $DIR/clients/$1/
 
-cd $PWD/clients
-cp ./conf/client.ovpn ./$1/client.ovpn
+cd $DIR
+cp ./conf/client.ovpn ./clients/$1/client.ovpn
+
+cd $DIR/clients
 cp /etc/openvpn/ta.key ./$1
 
 echo ca ca.crt$'\r' >> ./$1/client.ovpn
