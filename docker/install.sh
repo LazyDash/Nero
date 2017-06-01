@@ -9,5 +9,8 @@ yum makecache fast
 yum install -y docker-ce
 systemctl start docker
 
+#enable docker
+systemctl enable docker
+
 #test
 docker run hello-world
