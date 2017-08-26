@@ -2,7 +2,7 @@
 
 #install system dependencies
 yum install -y epel-release
-yum groupinstall 'Development Tools'
+yum groupinstall -y 'Development Tools'
 
 #configure network for openvpn forward
 echo "net.ipv4.ip_forward = 1" >> /etc/sysctl.conf
