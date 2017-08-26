@@ -8,7 +8,7 @@ rpm -ivh $MYSQL_VERSION.rpm
 rm -rf $MYSQL_VERSION.rpm
 
 #install mysql
-yum install mysql-server
+yum install -y mysql-server
 
 #enable and start mysql
 systemctl enable mysqld
