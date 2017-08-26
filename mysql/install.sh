@@ -1,8 +1,11 @@
 #!/bin/bash
 
+MYSQL_VERSION=mysql57-community-release-el7-9.noarch
+
 #add mysql repo
-wget https://dev.mysql.com/get/mysql57-community-release-el7-9.noarch.rpm
-rpm -ivh mysql57-community-release-el7-9.noarch.rpm
+wget https://dev.mysql.com/get/$MYSQL_VERSION.rpm
+rpm -ivh $MYSQL_VERSION.rpm
+rm -rf $MYSQL_VERSION.rpm
 
 #install mysql
 yum install mysql-server
