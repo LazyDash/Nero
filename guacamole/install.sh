@@ -31,9 +31,9 @@ wget "http://apache.org/dyn/closer.cgi?action=download&filename=incubator/guacam
 mv guacamole-0.9.13-incubating.war /opt/tomcat/webapps/guacamole.war
 
 #GUACAMOLE_HOME
-mkdir ~./.guacamole
-mkdir ~./.guacamole/extensions
-mkdir ~./.guacamole/lib
+mkdir ~/.guacamole
+mkdir ~/.guacamole/extensions
+mkdir ~/.guacamole/lib
 
 #databse
 mysql -u root -p
