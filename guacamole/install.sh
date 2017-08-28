@@ -8,17 +8,6 @@
 GUACAMOLE_VERSION=0.9.13-incubating
 MYSQL_ROOT_PASSWORD=password
 
-#main
-get_user_input
-install_dependencies
-install_guacd
-install_guacamole_war
-create_guacamole_home_folder
-create_guacamole_db_and_user
-copy_guacamole_db_extensions_and_setup_guacamole_db
-copy_guacamole_mysql_connector
-copy_guacamole_properties
-
 function get_user_input {
   read -p "Enter MYSQL root password" $MYSQL_ROOT_PASSWORD
 
@@ -71,7 +60,7 @@ function create_guacamole_home_folder {
 
 function create_guacamole_db_and_user {
   echo "Connecting to mysql using root"
-  mysql -u root -p < create_guacamole_db_user.sql
+  mysql -u root -p$MYSQL_ROOT_PASSWORD < create_guacamole_db_user.sql
 
 }
 
@@ -83,7 +72,7 @@ function copy_guacamole_db_extensions_and_setup_guacamole_db {
 
   cd guacamole-auth-jdbc-$GUACAMOLE_VERSION/mysql
   echo "Connecting to mysql using root"
-  cat schema/*.sql | mysql -u root -p guacamole_db
+  cat schema/*.sql | mysql -u root -p$MYSQL_ROOT_PASSWORD guacamole_db
   cd ../..
   rm -rf guacamole-auth-jdbc-$GUACAMOLE_VERSION
 
@@ -103,3 +92,14 @@ function copy_guacamole_properties {
   cp guacamole.properties ~/.guacamole
 
 }
+
+#main
+get_user_input
+install_dependencies
+install_guacd
+install_guacamole_war
+create_guacamole_home_folder
+create_guacamole_db_and_user
+copy_guacamole_db_extensions_and_setup_guacamole_db
+copy_guacamole_mysql_connector
+copy_guacamole_properties
