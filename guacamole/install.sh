@@ -5,11 +5,16 @@
 #  - EPEL repo
 
 #vars
+#default
 GUACAMOLE_VERSION=0.9.13-incubating
+MYSQL_JCONNECTOR=5.1.43
+GUACAMOLE_DB_USER_PASSWORD=`date +%s | sha256sum | base64 | head -c 20`
+
+#user
 MYSQL_ROOT_PASSWORD=password
 
 function get_user_input {
-  read -p "Enter MYSQL root password" $MYSQL_ROOT_PASSWORD
+  read -s -p "Enter MYSQL root password" MYSQL_ROOT_PASSWORD
 
 }
 
@@ -59,12 +64,17 @@ function create_guacamole_home_folder {
 }
 
 function create_guacamole_db_and_user {
-  echo "Connecting to mysql using root"
+  touch create_guacamole_db_user.sql
+  echo "CREATE DATABASE guacamole_db;" > create_guacamole_db_user.sql
+  echo "CREATE USER 'guacamole_user'@'localhost' IDENTIFIED BY '$GUACAMOLE_DB_USER_PASSWORD';" >> create_guacamole_db_user.sql
+  echo "GRANT SELECT,INSERT,UPDATE,DELETE ON guacamole_db.* TO 'guacamole_user'@'localhost';" >> create_guacamole_db_user.sql
+  echo "FLUSH PRIVILEGES;" >> create_guacamole_db_user.sql
   mysql -u root -p$MYSQL_ROOT_PASSWORD < create_guacamole_db_user.sql
+  rm -rf create_guacamole_db_user.sql
 
 }
 
-function copy_guacamole_db_extensions_and_setup_guacamole_db {
+function download_guacamole_db_extensions_and_setup_guacamole_db {
   wget "http://apache.org/dyn/closer.cgi?action=download&filename=incubator/guacamole/$GUACAMOLE_VERSION/binary/guacamole-auth-jdbc-$GUACAMOLE_VERSION.tar.gz" -O guacamole-auth-jdbc-$GUACAMOLE_VERSION.tar.gz
   tar -xzf guacamole-auth-jdbc-$GUACAMOLE_VERSION.tar.gz
   rm -rf guacamole-auth-jdbc-$GUACAMOLE_VERSION.tar.gz
@@ -78,18 +88,30 @@ function copy_guacamole_db_extensions_and_setup_guacamole_db {
 
 }
 
-function copy_guacamole_mysql_connector {
-  wget "https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-5.1.43.tar.gz"
-  tar -xzf mysql-connector-java-5.1.43.tar.gz
-  rm -rf mysql-connector-java-5.1.43.tar.gz
-  mv mysql-connector-java-5.1.43/mysql-connector-java-5.1.43-bin.jar ~/.guacamole/lib/
-  rm -rf mysql-connector-java-5.1.43
+function download_guacamole_mysql_connector {
+  wget "https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-MYSQL_JCONNECTOR.tar.gz"
+  tar -xzf mysql-connector-java-MYSQL_JCONNECTOR.tar.gz
+  rm -rf mysql-connector-java-MYSQL_JCONNECTOR.tar.gz
+  mv mysql-connector-java-MYSQL_JCONNECTOR/mysql-connector-java-MYSQL_JCONNECTOR-bin.jar ~/.guacamole/lib/
+  rm -rf mysql-connector-java-MYSQL_JCONNECTOR
 
 }
 
-function copy_guacamole_properties {
-  #copy guacamole.properties in .guacamole
-  cp guacamole.properties ~/.guacamole
+function setup_guacamole_properties {
+  touch guacamole.properties
+
+  echo "# Hostname and port of guacamole proxy
+guacd-hostname: localhost
+guacd-port:     4822
+
+# MySQL properties
+mysql-hostname: localhost
+mysql-port: 3306
+mysql-database: guacamole_db
+mysql-username: guacamole_user
+mysql-password: $GUACAMOLE_DB_USER_PASSWORD" > guacamole.properties
+
+  mv guacamole.properties ~/.guacamole
 
 }
 
@@ -100,6 +122,6 @@ install_guacd
 install_guacamole_war
 create_guacamole_home_folder
 create_guacamole_db_and_user
-copy_guacamole_db_extensions_and_setup_guacamole_db
-copy_guacamole_mysql_connector
-copy_guacamole_properties
+download_guacamole_db_extensions_and_setup_guacamole_db
+download_guacamole_mysql_connector
+setup_guacamole_properties
