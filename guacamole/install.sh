@@ -6,8 +6,10 @@
 
 #vars
 GUACAMOLE_VERSION=0.9.13-incubating
+MYSQL_ROOT_PASSWORD=password
 
 #main
+get_user_input
 install_dependencies
 install_guacd
 install_guacamole_war
@@ -17,6 +19,10 @@ copy_guacamole_db_extensions_and_setup_guacamole_db
 copy_guacamole_mysql_connector
 copy_guacamole_properties
 
+function get_user_input {
+  read -p "Enter MYSQL root password" $MYSQL_ROOT_PASSWORD
+
+}
 
 function install_dependencies {
   #install ffmpeg ffmpeg-devel
