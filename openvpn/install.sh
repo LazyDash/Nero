@@ -34,6 +34,10 @@ source ./vars
 cd /etc/openvpn/easy-rsa/keys
 cp dh2048.pem ca.crt server.crt server.key /etc/openvpn
 
+#generate test client and revoke certificate
+./build-key.sh test
+./revoke-full.sh test
+
 #openvpn enable and start service
 systemctl enable openvpn@server.service
 systemctl start openvpn@server.service

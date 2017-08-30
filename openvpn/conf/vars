@@ -69,7 +69,7 @@ export KEY_EMAIL="valentin.uveges@gmail.com"
 export KEY_OU="headquarters"
 
 # X509 Subject Field
-export KEY_NAME="server"
+export KEY_NAME="machine"
 
 # PKCS11 Smart Card
 # export PKCS11_MODULE_PATH="/usr/lib/changeme.so"
