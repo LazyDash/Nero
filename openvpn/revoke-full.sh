@@ -15,4 +15,6 @@ source ./vars
 
 cp ./keys/crl.pem /etc/openvpn/crl.pem
 
+sed -i "/$client/d" /etc/openvpn/ipp.txt
+
 cd $DIR
