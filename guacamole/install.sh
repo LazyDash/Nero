@@ -6,7 +6,7 @@
 
 #vars
 #default
-GUACAMOLE_VERSION=0.9.13-incubating
+GUACAMOLE_VERSION=0.9.14
 MYSQL_JCONNECTOR=5.1.43
 GUACAMOLE_DB_USER_PASSWORD=`date +%s | sha256sum | base64 | head -c 20`
 
@@ -33,7 +33,7 @@ function install_dependencies {
 }
 
 function install_guacd {
-  wget "http://apache.org/dyn/closer.cgi?action=download&filename=incubator/guacamole/$GUACAMOLE_VERSION/source/guacamole-server-$GUACAMOLE_VERSION.tar.gz" -O guacamole-server-$GUACAMOLE_VERSION.tar.gz
+  wget "http://apache.org/dyn/closer.cgi?action=download&filename=guacamole/$GUACAMOLE_VERSION/source/guacamole-server-$GUACAMOLE_VERSION.tar.gz" -O guacamole-server-$GUACAMOLE_VERSION.tar.gz
   tar -xzf guacamole-server-$GUACAMOLE_VERSION.tar.gz
   rm -rf guacamole-server-$GUACAMOLE_VERSION.tar.gz
   cd guacamole-server-$GUACAMOLE_VERSION
@@ -50,7 +50,7 @@ function install_guacd {
 
 function install_guacamole_war {
   #this assumes a tomcat server installation located in /opt/tomcat
-  wget "http://apache.org/dyn/closer.cgi?action=download&filename=incubator/guacamole/$GUACAMOLE_VERSION/binary/guacamole-$GUACAMOLE_VERSION.war" -O guacamole-$GUACAMOLE_VERSION.war
+  wget "http://apache.org/dyn/closer.cgi?action=download&filename=guacamole/$GUACAMOLE_VERSION/binary/guacamole-$GUACAMOLE_VERSION.war" -O guacamole-$GUACAMOLE_VERSION.war
   mv guacamole-$GUACAMOLE_VERSION.war /opt/tomcat/webapps/guacamole.war
 
 }
@@ -75,7 +75,7 @@ function create_guacamole_db_and_user {
 }
 
 function download_guacamole_db_extensions_and_setup_guacamole_db {
-  wget "http://apache.org/dyn/closer.cgi?action=download&filename=incubator/guacamole/$GUACAMOLE_VERSION/binary/guacamole-auth-jdbc-$GUACAMOLE_VERSION.tar.gz" -O guacamole-auth-jdbc-$GUACAMOLE_VERSION.tar.gz
+  wget "http://apache.org/dyn/closer.cgi?action=download&filename=guacamole/$GUACAMOLE_VERSION/binary/guacamole-auth-jdbc-$GUACAMOLE_VERSION.tar.gz" -O guacamole-auth-jdbc-$GUACAMOLE_VERSION.tar.gz
   tar -xzf guacamole-auth-jdbc-$GUACAMOLE_VERSION.tar.gz
   rm -rf guacamole-auth-jdbc-$GUACAMOLE_VERSION.tar.gz
   cp guacamole-auth-jdbc-$GUACAMOLE_VERSION/mysql/guacamole-auth-jdbc-mysql-$GUACAMOLE_VERSION.jar ~/.guacamole/extensions/
