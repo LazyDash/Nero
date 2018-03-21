@@ -89,11 +89,11 @@ function download_guacamole_db_extensions_and_setup_guacamole_db {
 }
 
 function download_guacamole_mysql_connector {
-  wget "https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-MYSQL_JCONNECTOR.tar.gz"
-  tar -xzf mysql-connector-java-MYSQL_JCONNECTOR.tar.gz
-  rm -rf mysql-connector-java-MYSQL_JCONNECTOR.tar.gz
-  mv mysql-connector-java-MYSQL_JCONNECTOR/mysql-connector-java-MYSQL_JCONNECTOR-bin.jar ~/.guacamole/lib/
-  rm -rf mysql-connector-java-MYSQL_JCONNECTOR
+  wget "https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-$MYSQL_JCONNECTOR.tar.gz"
+  tar -xzf mysql-connector-java-$MYSQL_JCONNECTOR.tar.gz
+  rm -rf mysql-connector-java-$MYSQL_JCONNECTOR.tar.gz
+  mv mysql-connector-java-$MYSQL_JCONNECTOR/mysql-connector-java-$MYSQL_JCONNECTOR-bin.jar ~/.guacamole/lib/
+  rm -rf mysql-connector-java-$MYSQL_JCONNECTOR
 
 }
 
