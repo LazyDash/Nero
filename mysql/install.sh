@@ -1,11 +1,12 @@
 #!/bin/bash
 
-MYSQL_VERSION=mysql57-community-release-el7-9.noarch
+#vars
+MYSQL_RPM_URL=https://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm
 
 #add mysql repo
-wget https://dev.mysql.com/get/$MYSQL_VERSION.rpm
-rpm -ivh $MYSQL_VERSION.rpm
-rm -rf $MYSQL_VERSION.rpm
+wget "$MYSQL_RPM_URL" -O mysql.rpm
+rpm -ivh mysql.rpm
+rm -rf mysql.rpm
 
 #install mysql
 yum install -y mysql-server
