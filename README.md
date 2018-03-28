@@ -1,26 +1,26 @@
 # Nero
 CentOS scripts for working with various applications.
 
-1. Update
+## Update
 yum update -y
 yum clean all
 
-2. Reboot
+## Reboot
 reboot
 
-2. Install git.
+## Install git
 yum install -y git
 
-3. Generate ssh-key
+## Generate ssh-key
 ssh-keygen -t rsa
 cat .ssh/id_rsa.pub
 
-4. copy the key to github
+## Copy the key to github
 https://github.com/settings/keys
 
-5. clone the Nero project
+## Clone the Nero project
 mkdir Lazydash
 cd Lazydash
 git clone https://github.com/Lazydash/Nero.git
 
-Enjoy
+## Enjoy
