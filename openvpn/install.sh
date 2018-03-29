@@ -1,42 +1,36 @@
 #!/bin/bash
 
-#install openvpn
+#!/bin/bash
+
+#var
+LOCAL=`pwd`
+
+#install openvpn and easy-rsa
 yum install -y openvpn easy-rsa
 
-#generate secret key
+#copy easy-rsa to openvpn
+mkdir /etc/openvpn/easy-rsa
+cp -rf /usr/share/easy-rsa/3.0.3/* /etc/openvpn/easy-rsa
+
+#easy-rsa: create pki
+cd /etc/openvpn/easy-rsa
+echo "yes" | ./easyrsa init-pki
+echo "" | ./easyrsa build-ca nopass
+echo "" | ./easyrsa build-server-full server nopass
+./easyrsa gen-crl
+./easyrsa gen-dh
+cd $LOCAL
+
+#copy relevent files to openvpn server folder
+cp ./conf/server.conf /etc/openvpn
+cp /etc/openvpn/easy-rsa/pki/ca.crt /etc/openvpn
+cp /etc/openvpn/easy-rsa/pki/crl.pem /etc/openvpn
+cp /etc/openvpn/easy-rsa/pki/dh.pem /etc/openvpn
+cp /etc/openvpn/easy-rsa/pki/issued/server.crt /etc/openvpn
+cp /etc/openvpn/easy-rsa/pki/private/server.key /etc/openvpn
+
+#openvpn: generate secret key
 openvpn --genkey --secret /etc/openvpn/ta.key
-
-#openvpn copy easy-rsa
-mkdir -p /etc/openvpn/easy-rsa/keys
-cp -rf /usr/share/easy-rsa/2.0/* /etc/openvpn/easy-rsa
-
-#openvpn Copy SSL in order to avoid naming issues
-cp /etc/openvpn/easy-rsa/openssl-1.0.0.cnf /etc/openvpn/easy-rsa/openssl.cnf
-
-#openvpn enable service
-systemctl enable openvpn@server.service
-
-#openvpn setup
-cp ./conf/server.conf /etc/openvpn/
-cp ./conf/vars /etc/openvpn/easy-rsa/
-
-#openvpn move to dir
-cd /etc/openvpn/easy-rsa/
-source ./vars
-./clean-all
-
-#openvpn build server keys
-./build-ca
-./build-dh
-./build-key-server server
-
-#openvpn copy cerificates
-cd /etc/openvpn/easy-rsa/keys
-cp dh2048.pem ca.crt server.crt server.key /etc/openvpn
-
-#generate test client and revoke certificate
-./build-key.sh test
-./revoke-full.sh test
 
 #openvpn enable and start service
 systemctl enable openvpn@server.service
