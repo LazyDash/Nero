@@ -14,7 +14,7 @@ reboot
 3. Install git:  
 yum install -y git
 
-4. Generate ssh-key:  
+4. Generate new ssh-key:  
 ssh-keygen -t rsa  
 cat .ssh/id_rsa.pub
 
