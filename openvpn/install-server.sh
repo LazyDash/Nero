@@ -1,7 +1,5 @@
 #!/bin/bash
 
-#!/bin/bash
-
 #var
 LOCAL=`pwd`
 
@@ -11,6 +9,9 @@ yum install -y openvpn easy-rsa
 #copy easy-rsa to openvpn
 mkdir /etc/openvpn/easy-rsa
 cp -rf /usr/share/easy-rsa/3.0.3/* /etc/openvpn/easy-rsa
+
+#make dir for route push clients
+mkdir /etc/openvpn/ccd
 
 #easy-rsa: create pki
 cd /etc/openvpn/easy-rsa
