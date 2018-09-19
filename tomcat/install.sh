@@ -5,7 +5,7 @@
 #  - havedge (for improving tomcat's startup time and entropy)
 
 #vars
-TOMCAT_URL=http://mirrors.dotsrc.org/apache/tomcat/tomcat-9/v9.0.6/bin/apache-tomcat-9.0.6.tar.gz
+TOMCAT_URL=http://mirrors.m247.ro/apache/tomcat/tomcat-9/v9.0.12/bin/apache-tomcat-9.0.12.tar.gz
 
 #main
 wget "$TOMCAT_URL" -O tomcat.tar.gz

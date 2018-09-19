@@ -66,9 +66,7 @@ function create_guacamole_home_folder {
 
 function create_guacamole_db_and_user {
   touch create_guacamole_db_user.sql
-  echo "DROP DATABASE guacamole_db;" > create_guacamole_db_user.sql
   echo "CREATE DATABASE guacamole_db;" > create_guacamole_db_user.sql
-  echo "DROP USER 'guacamole_user'@'localhost';" >> create_guacamole_db_user.sql
   echo "CREATE USER 'guacamole_user'@'localhost' IDENTIFIED BY '$GUACAMOLE_DB_USER_PASSWORD';" >> create_guacamole_db_user.sql
   echo "GRANT SELECT,INSERT,UPDATE,DELETE ON guacamole_db.* TO 'guacamole_user'@'localhost';" >> create_guacamole_db_user.sql
   echo "FLUSH PRIVILEGES;" >> create_guacamole_db_user.sql
