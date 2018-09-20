@@ -2,11 +2,9 @@
 CentOS scripts for working with various applications.
 
 ## Setup
-
 1. Update:  
 yum update -y  
 yum clean all
-
 
 2. Reboot:  
 reboot
@@ -19,7 +17,7 @@ ssh-keygen -t rsa
 cat .ssh/id_rsa.pub
 
 5. Copy the key to github:  
-https://github.com/settings/keys
+ssh://github.com/settings/keys
 
 6. Clone the Nero project:  
 mkdir Lazydash  

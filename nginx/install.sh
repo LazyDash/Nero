@@ -17,7 +17,7 @@ openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048
 echo "return 301 https://\$host\$request_uri/;" >> /etc/nginx/default.d/ssl-redirect.conf
 
 #add lazydash.comf
-cp ./ssl.conf /etc/nginx/conf.d
+cp ./lazydash.com.conf /etc/nginx/conf.d
 
 #allow SELinux exception for reverse proxy
 setsebool -P httpd_can_network_connect true

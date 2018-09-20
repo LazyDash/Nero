@@ -9,6 +9,9 @@ yum install -y wget
 #install monospace font
 yum install -y gnu-free-mono-fonts
 
+#install htop
+yum install -y htop
+
 #configure network for openvpn forward
 echo "net.ipv4.ip_forward = 1" >> /etc/sysctl.conf
 systemctl restart network.service
