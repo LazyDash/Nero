@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #install nginx
-yum install nginx
+yum install -y nginx
 
 #enable and run nginx
 systemctl enable nginx
@@ -14,13 +14,15 @@ openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/ngi
 openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048
 
 #add redirect from 80 to 443
-mkdir /etc/nginx/default.d
 echo "return 301 https://\$host\$request_uri/;" >> /etc/nginx/default.d/ssl-redirect.conf
+
+#add lazydash.comf
+cp ./ssl.conf /etc/nginx/conf.d
+
+#allow SELinux exception for reverse proxy
+setsebool -P httpd_can_network_connect true
 
 #enable changes and restart nginx
 nginx -t
 systemctl restart nginx
 
-#add lazydash.comf
-mkdir /etc/nginx/conf.d
-cp ./ssl.conf /etc/nginx/conf.d
