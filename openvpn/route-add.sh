@@ -16,9 +16,9 @@ network_ip=$2
 network_mask=$3
 
 touch /etc/openvpn/ccd/$common_name
-echo "iroute $network_ip $network_mask" >> /etc/openvpn/ccd/$common_name
+echo "iroute $network_ip $network_mask" > /etc/openvpn/ccd/$common_name
 
-echo "route $network_ip $network_mask" > /etc/openvpn/server.conf
-echo "push \"route $network_ip $network_mask\"" > /etc/openvpn/server.conf
+echo "route $network_ip $network_mask" >> /etc/openvpn/server.conf
+echo "push \"route $network_ip $network_mask\"" >> /etc/openvpn/server.conf
 
 systemctl restart openvpn@server.service
