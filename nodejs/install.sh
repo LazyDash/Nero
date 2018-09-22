@@ -1,6 +1,10 @@
 #!/bin/bash
-curl --silent --location https://rpm.nodesource.com/setup_6.x | bash -
-yum -y install nodejs
 
-#install node apps
+#requires epel-release
+
+#install nodejs and npm
+yum install -y nodejs
+yum install -y npm
+
+#install paclages
 npm install -g bower
