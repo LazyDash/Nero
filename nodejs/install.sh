@@ -1,10 +1,9 @@
 #!/bin/bash
-
 #requires epel-release
 
 #install nodejs and npm
 yum install -y nodejs
 yum install -y npm
 
-#install paclages
+#install packages
 npm install -g bower

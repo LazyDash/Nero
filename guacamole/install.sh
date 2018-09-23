@@ -26,11 +26,10 @@ function install_dependencies {
   yum install -y ffmpeg ffmpeg-devel
 
   #required deps
-  yum install -y cairo-devel libjpeg-turbo-devel libjpeg-devel libpng-devel uuid-devel
+  yum install -y cairo-devel libjpeg-turbo-devel libjpeg-devel libpng-devel uuid-devel gnu-free-mono-fonts
 
   #optional deps
   yum install -y freerdp-devel pango-devel libssh2-devel libtelnet-devel libvncserver-devel pulseaudio-libs-devel openssl-devel libvorbis-devel libwebp-devel
-
 }
 
 function install_guacd {
@@ -110,7 +109,6 @@ mysql-username: guacamole_user
 mysql-password: $GUACAMOLE_DB_USER_PASSWORD" > guacamole.properties
 
   mv guacamole.properties ~/.guacamole
-
 }
 
 #main

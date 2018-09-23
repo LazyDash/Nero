@@ -22,7 +22,7 @@ ssh://github.com/settings/keys
 6. Clone the Nero project:  
 mkdir Lazydash  
 cd Lazydash  
-git clone https://github.com/Lazydash/Nero.git
+git clone git://github.com/Lazydash/Nero.git
 
 ## Enjoy
 Have fun with the scripts

@@ -1,7 +1,10 @@
 #!/bin/bash
-
 #var
 LOCAL=`pwd`
+
+#configure network for openvpn forward
+echo "net.ipv4.ip_forward = 1" >> /etc/sysctl.conf
+systemctl restart network.service
 
 #install openvpn and easy-rsa
 yum install -y openvpn easy-rsa
