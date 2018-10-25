@@ -17,7 +17,7 @@ ssh-keygen -t rsa
 cat .ssh/id_rsa.pub
 
 5. Copy the key to github:  
-ssh://github.com/settings/keys
+https://github.com/settings/keys
 
 6. Clone the Nero project:  
 mkdir Lazydash  
