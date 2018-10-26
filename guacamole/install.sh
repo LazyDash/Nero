@@ -29,7 +29,7 @@ function install_dependencies {
   yum install -y cairo-devel libjpeg-turbo-devel libjpeg-devel libpng-devel uuid-devel gnu-free-mono-fonts
 
   #optional deps
-  yum install -y freerdp-devel pango-devel libssh2-devel libtelnet-devel libvncserver-devel pulseaudio-libs-devel openssl-devel libvorbis-devel libwebp-devel
+  yum install -y freerdp-devel freerdp-plugins pango-devel libssh2-devel libtelnet-devel libvncserver-devel pulseaudio-libs-devel openssl-devel libvorbis-devel libwebp-devel
 }
 
 function install_guacd {
@@ -41,6 +41,10 @@ function install_guacd {
   ./configure
   make
   make install
+
+  # freerdp is installed in a different place and we need to create links in order for freerdp to be able to use the plugins for sound
+  ln -s /usr/local/lib/freerdp/guac*.so /usr/lib64/freerdp/
+
   guacd
 
   #cleanup
